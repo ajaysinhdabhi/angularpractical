@@ -12,13 +12,25 @@ export class AuthService {
 isadmin?:any
   constructor(private http:HttpClient) { }
  
-  apiurl='http://localhost:3000/myjsondata'
+  apiurl='http://localhost:8080/api/v1/employees'
   islog(props:any , props2:any){
     this.isloggedany=props;
     this.isadmin=props2
   }
+
+  // isloggedin(){
+  //   if(this.isloggedany==true){
+  //     return true;
+  //   }
+  //   else{
+  //     return false;
+  //   }
+  // }
+
+
+
   isloggedin(){
-    if(this.isloggedany==true){
+    if(sessionStorage.length!==0){
       return true;
     }
     else{
@@ -33,14 +45,14 @@ isadmin?:any
   }
 
   postEmployee(data : any){
-    return this.http.post<any>("http://localhost:3000/employeedata",data)
+    return this.http.post<any>("http://localhost:8080/api/v1/employees",data)
     .pipe(map((res:any)=>{
       return res;
     }))
   }
 
   getEmployee(){
-    return this.http.get<any>("http://localhost:3000/employeedata?role=user")
+    return this.http.get<any>("http://localhost:8080/api/v1/employees")
     .pipe(map((res:any)=>{
       
       
@@ -49,14 +61,14 @@ isadmin?:any
   }
 
   updateEmployee(data:any,id:number){
-    return this.http.put<any>("http://localhost:3000/employeedata"+"/"+id,data)
+    return this.http.put<any>("http://localhost:8080/api/v1/employees"+"/"+id,data)
     .pipe(map((res:any)=>{
       return res;
     }))
   }
 
   deleteEmployee(id:number){
-    return this.http.delete<any>("http://localhost:3000/employeedata"+"/"+id)
+    return this.http.delete<any>("http://localhost:8080/api/v1/employees"+"/"+id)
     .pipe(map((res:any)=>{
       return res;
     }))

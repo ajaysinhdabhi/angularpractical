@@ -4,4 +4,5 @@ export class EmployeeModel{
     email:any='';
     phone:any='';
     role:any='';
+    password:any='';
 }

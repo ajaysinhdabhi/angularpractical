@@ -33,7 +33,7 @@ export class LoginComponent {
       
       // })
       
-      this.http.get('http://localhost:3000/employeedata').subscribe(res=>{
+      this.http.get('http://localhost:8080/api/v1/employees').subscribe(res=>{
         this.userdata=res;
         console.log(this.userdata);
 
@@ -46,14 +46,14 @@ export class LoginComponent {
             this.islogged=true;
             this.admin = element.role;
             this.service.islog(this.islogged , this.admin);
-
+            sessionStorage.setItem('username',JSON.stringify(element));
             this.router.navigate(['']);
           }
           else if(element.role == 'user' && element.password == this.loginForm.value.password && element.username == this.loginForm.value.user){
             this.islogged=true;
             this.admin = element.role;
         this.service.islog(this.islogged , this.admin);
-        
+            sessionStorage.setItem('username',JSON.stringify(element));
         this.router.navigate(['']);
 
           }

@@ -10,11 +10,13 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private router:Router,private service:AuthService,private http:HttpClient){
+  constructor(private router:Router,public service:AuthService,private http:HttpClient){
 
   }
   userdata:any;
   employee:any;
+  employeeuser:any;
+  oemployeeuser:any;
 
   isvisible?:boolean
   empvisible?:boolean
@@ -41,6 +43,21 @@ showButton(){
 }
 
 check(){
+  // this.employeeuser = sessionStorage.getItem('username');
+  // console.log(this.employeeuser);
+  
+  // this.oemployeeuser = JSON.parse(this.employeeuser)
+  // console.log(this.oemployeeuser);
+  
+  // if(this.oemployeeuser.role=='admin'){
+  //   return true;
+  // }
+  // else{
+  //   return false;
+  // }
+
+
+
   if(this.service.isadmin == 'admin'){
     return true
   }
@@ -53,7 +70,8 @@ check(){
 logout(){
   this.service.isloggedany=false;
   this.service.isadmin = 'user';
-  this.router.navigate(['']);
+  sessionStorage.clear();
+  this.router.navigate(['/login']);
   
 }
 

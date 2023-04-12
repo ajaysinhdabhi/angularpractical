@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 
@@ -11,7 +13,7 @@ export class HomeComponent {
   isvisible?:boolean;
   textshow?:boolean;
 
-  constructor(private router:Router,private service:AuthService){
+  constructor(private router:Router,private service:AuthService,private snakebar:MatSnackBar,public dialog:MatDialog){
 
   }
 
@@ -25,7 +27,17 @@ export class HomeComponent {
     }
   }
   popup(){
-    alert('To read the full blog you must have login1')
+    this.openDialog();
+  }
+
+  openDialog() {
+    this.dialog.open(DialogElementsExampleDialog,{
+      width: '40vw',
+      height:'25vh',
+      disableClose: true,
+       
+    }
+    );
   }
 
 
@@ -38,7 +50,11 @@ export class HomeComponent {
     }else{
      
       this.textshow=false; 
-      alert('To read the more blog you must have login2');
+      // this.snakebar.open("please login","ok",{
+        
+      //   panelClass: ['mat-toolbar', 'mat-primary']
+      // });
+      this.openDialog();
       
       this.router.navigate(['/login']);
      
@@ -46,7 +62,22 @@ export class HomeComponent {
     }
   }
 
+
+
+  
+  
+
  
 
 
 }
+
+@Component({
+  selector: 'dialog-elements-example-dialog',
+  templateUrl: './dialog-elements-example-dialog.html',
+})
+export class DialogElementsExampleDialog {}
+
+
+
+
